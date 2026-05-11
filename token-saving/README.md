@@ -15,11 +15,11 @@ This skill teaches the AI to be precise: read what's needed, search before scann
 
 ## Key Strategies
 
-1. **Smart File Reading** ！ Use `search_files` and `list_code_definition_names` before `read_file`
-2. **Search Before Scan** ！ Regex search returns only matching lines, not entire files
-3. **Efficient Execution** ！ Batch tool calls, use the right tool, avoid redundant verification
-4. **Concise Output** ！ No filler, no restating known info, just results
-5. **Cache-Friendly Patterns** ！ Stable content first, variable content last
+1. **Smart File Reading** - Use `search_files` and `list_code_definition_names` before `read_file`
+2. **Search Before Scan** - Regex search returns only matching lines, not entire files
+3. **Efficient Execution** - Batch tool calls, use the right tool, avoid redundant verification
+4. **Concise Output** - No filler, no restating known info, just results
+5. **Cache-Friendly Patterns** - Stable content first, variable content last
 
 ## Installation
 
@@ -42,22 +42,22 @@ cp -r -Token-Saving-Skill/token-saving ~/.agents/skills/
 
 ```
 token-saving/
-??? SKILL.md              # Main skill instructions
-??? README.md             # This file
-??? evals/
-    ??? evals.json         # Test cases for evaluation
-    ??? files/
-        ??? test-project/  # Sample project for testing
-            ??? config.json
-            ??? src/
-                ??? app.js
-                ??? routes/
-                ?   ??? api.js
-                ??? services/
-                ?   ??? cart.js
-                ?   ??? order.js
-                ??? utils/
-                    ??? math.js
++-- SKILL.md              # Main skill instructions
++-- README.md             # This file
+\-- evals/
+    +-- evals.json         # Test cases for evaluation
+    \-- files/
+        \-- test-project/  # Sample project for testing
+            +-- config.json
+            \-- src/
+                +-- app.js
+                +-- routes/
+                |   \-- api.js
+                +-- services/
+                |   +-- cart.js
+                |   \-- order.js
+                \-- utils/
+                    \-- math.js
 ```
 
 ## How It Works
