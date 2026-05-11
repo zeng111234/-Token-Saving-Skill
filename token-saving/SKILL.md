@@ -2,7 +2,7 @@
 name: token-saving
 description: >
   Token optimization strategies for AI coding assistants to reduce input token consumption and improve prompt cache hit rates.
-  Use this skill whenever working on any task ¡ª coding, debugging, file editing, refactoring, or any multi-step workflow.
+  Use this skill whenever working on any task - coding, debugging, file editing, refactoring, or any multi-step workflow.
   The strategies apply to every interaction: reading files, executing commands, searching code, and composing responses.
   This skill should be active for ALL tasks, not just token-heavy ones. Make it the default operating mode.
 ---
@@ -13,8 +13,8 @@ You are operating in **token-saving mode**. Every tool call and every line of ou
 
 There are two key levers:
 
-1. **Reduce input tokens** ¡ª the tokens you consume reading files, tool outputs, and system context. This is usually the larger cost.
-2. **Improve cache hit rate** ¡ª API providers cache common prompt prefixes. When you keep stable content at the front of the context and push variable content to the back, more of your input gets served from cache at a fraction of the cost.
+1. **Reduce input tokens** - the tokens you consume reading files, tool outputs, and system context. This is usually the larger cost.
+2. **Improve cache hit rate** - API providers cache common prompt prefixes. When you keep stable content at the front of the context and push variable content to the back, more of your input gets served from cache at a fraction of the cost.
 
 These two goals reinforce each other: smaller, more focused tool calls mean less context pollution, which means better cache prefixes.
 
@@ -32,7 +32,7 @@ Reading the wrong thing is expensive. A 2000-line file you didn't need costs ~50
 
 ### When you must read a file:
 
-- Read the **minimum necessary**. If you need lines 50¨C80, don't read the whole file.
+- Read the **minimum necessary**. If you need lines 50-80, don't read the whole file.
 - Use `search_files` to pinpoint exact locations before calling `read_file`.
 - If you already read a file earlier in the conversation, **do not read it again** unless you have reason to believe it changed (e.g., you or the user just edited it).
 
@@ -40,10 +40,10 @@ Reading the wrong thing is expensive. A 2000-line file you didn't need costs ~50
 
 | Wasteful | Better |
 |----------|--------|
-| Read all 15 source files to understand the project | `list_code_definition_names` + read 2¨C3 key files |
+| Read all 15 source files to understand the project | `list_code_definition_names` + read 2-3 key files |
 | Read an entire 500-line config to check one setting | `search_files` for the setting name |
 | Read a file you read 3 messages ago | Recall from context; re-read only if edited since |
-| Read every file before making any change | Read ¡ú understand ¡ú change ¡ú verify |
+| Read every file before making any change | Read -> understand -> change -> verify |
 
 ---
 
@@ -68,7 +68,7 @@ Reading the wrong thing is expensive. A 2000-line file you didn't need costs ~50
 
 ### Batch your thinking
 
-Before calling any tool, plan your next 2¨C3 moves. If you need to read two files and then edit one, think about what you'll do with that information. Avoid the pattern of: read ¡ú think ¡ú read ¡ú think ¡ú edit ¡ú think ¡ú verify. Instead: plan ¡ú read both ¡ú edit ¡ú verify.
+Before calling any tool, plan your next 2-3 moves. If you need to read two files and then edit one, think about what you'll do with that information. Avoid the pattern of: read -> think -> read -> think -> edit -> think -> verify. Instead: plan -> read both -> edit -> verify.
 
 ### Use the right tool for the job
 
@@ -95,7 +95,7 @@ Your output tokens also cost money, though usually less than input. More importa
 ### Be concise but complete
 
 - Don't repeat information the user already has.
-- Don't explain what you're about to do before doing it ¡ª just do it and report the result.
+- Don't explain what you're about to do before doing it - just do it and report the result.
 - Don't include boilerplate disclaimers or filler phrases.
 - Use `attempt_completion` to present results clearly and end the loop.
 
@@ -103,7 +103,7 @@ Your output tokens also cost money, though usually less than input. More importa
 
 - Keep them short and milestone-focused.
 - Update them silently (don't announce each update).
-- Don't add every minor detail ¡ª group related steps.
+- Don't add every minor detail - group related steps.
 
 ---
 
@@ -113,14 +113,14 @@ Prompt caching works by matching a prefix of your input against previously seen 
 
 ### What this means in practice:
 
-- **System instructions and rules are stable** ¡ª they're already at the front by design. No action needed.
+- **System instructions and rules are stable** - they're already at the front by design. No action needed.
 - **File contents you read early** become part of the cached prefix. If you read the same key files early in similar conversations, that content gets cached.
 - **Avoid editing the early part of your context** repeatedly. Each edit to an early message invalidates the cache for everything after it.
 - **Prefer append-style workflows**: read a file, then make targeted edits, rather than reading-rewriting-reading-rewriting the same file.
 
 ### For users setting up their environment:
 
-- Keep `.clinerules/` files stable across sessions ¡ª they're always loaded first and prime the cache.
+- Keep `.clinerules/` files stable across sessions - they're always loaded first and prime the cache.
 - Avoid changing project structure files (package.json, tsconfig, etc.) unnecessarily during a session.
 - If you have common reference files, keep them in a consistent order in your rules.
 
@@ -130,11 +130,11 @@ Prompt caching works by matching a prefix of your input against previously seen 
 
 When facing a choice about how to approach a task, run through this quick mental checklist:
 
-1. **Can I search instead of read?** ¡ú Use `search_files`
-2. **Can I get the overview first?** ¡ú Use `list_code_definition_names` or `list_files`
-3. **Can I batch this?** ¡ú Combine multiple reads/edits into one logical step
-4. **Am I re-reading something I already have?** ¡ú Skip it
-5. **Is my edit targeted?** ¡ú Use `replace_in_file`, not `write_to_file`
-6. **Am I about to explain instead of do?** ¡ú Just do it
+1. **Can I search instead of read?** -> Use `search_files`
+2. **Can I get the overview first?** -> Use `list_code_definition_names` or `list_files`
+3. **Can I batch this?** -> Combine multiple reads/edits into one logical step
+4. **Am I re-reading something I already have?** -> Skip it
+5. **Is my edit targeted?** -> Use `replace_in_file`, not `write_to_file`
+6. **Am I about to explain instead of do?** -> Just do it
 
-The goal is not to be lazy ¡ª it's to be precise. Every token spent should advance the user's task.
+The goal is not to be lazy - it's to be precise. Every token spent should advance the user's task.
