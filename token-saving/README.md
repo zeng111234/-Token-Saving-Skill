@@ -34,8 +34,8 @@ This skill teaches the AI to be precise: read what's needed, search before scann
 ### Manual Install
 
 ```bash
-git clone https://github.com/zeng111234/token-saving-skill.git
-cp -r token-saving-skill/token-saving ~/.agents/skills/
+git clone https://github.com/zeng111234/-Token-Saving-Skill.git
+cp -r -Token-Saving-Skill/token-saving ~/.agents/skills/
 ```
 
 ## Project Structure
