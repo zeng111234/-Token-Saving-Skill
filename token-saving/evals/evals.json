@@ -1,0 +1,44 @@
+{
+  "skill_name": "token-saving",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "In this project, find all places where the function 'calculateTotal' is called, and add error handling around each call (try-catch). Show me what you changed.",
+      "expected_output": "Agent uses search_files to locate calculateTotal calls, then reads only those specific locations, and uses replace_in_file for targeted edits",
+      "files": ["evals/files/test-project"],
+      "expectations": [
+        "Agent uses search_files before reading any files",
+        "Agent does not read entire source files unnecessarily",
+        "Agent uses replace_in_file for edits, not write_to_file",
+        "Agent does not re-read files it already has in context",
+        "Total tool calls are minimized (no redundant operations)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I need to understand the structure of this project ¡ª what are the main modules, what does each one export, and how do they relate to each other? Give me a brief summary.",
+      "expected_output": "Agent uses list_files and list_code_definition_names to get project overview, only reads a few key files for deeper understanding",
+      "files": ["evals/files/test-project"],
+      "expectations": [
+        "Agent uses list_code_definition_names or list_files as first step",
+        "Agent does not read every file in the project",
+        "Agent reads at most 3-4 files for deeper context",
+        "Agent provides a useful summary without reading everything",
+        "Total read_file calls are significantly fewer than total source files"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "The config.json file has a typo ¡ª 'prot' should be 'port'. Fix it, then check if there are any other similar typos in the project's config files.",
+      "expected_output": "Agent uses search_files to find the typo location, uses replace_in_file to fix it, then searches for similar patterns",
+      "files": ["evals/files/test-project"],
+      "expectations": [
+        "Agent does not read the entire config file to find the typo",
+        "Agent uses search_files or targeted read to locate the typo",
+        "Agent uses replace_in_file for the fix",
+        "Agent uses search_files to check for similar typos in other files",
+        "Agent does not re-read files unnecessarily after editing"
+      ]
+    }
+  ]
+}

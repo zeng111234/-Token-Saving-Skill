@@ -1,0 +1,16 @@
+{
+  "server": {
+    "host": "localhost",
+    "prot": 3000,
+    "timeout": 5000
+  },
+  "database": {
+    "host": "localhost",
+    "prot": 5432,
+    "name": "myapp"
+  },
+  "logging": {
+    "level": "info",
+    "file": "app.log"
+  }
+}
